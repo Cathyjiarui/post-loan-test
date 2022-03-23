@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <jmxConfigurator/>
+
+    <include resource="com/puhui/cloud/logging/logback/puhui-logback-standardization.xml"/>
+
+    <appender name="ERRORLOG" class="com.puhui.log.logback.HttpAppender">
+        <url>https://api.puhuifinance.com/log-server/log</url>
+        <localSystemName>@project.artifactId@</localSystemName>
+        <env>@config.branch@</env>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <encoder charset="UTF-8">
+            <pattern>%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} | %clr(${LOG_LEVEL_PATTERN:-%5p}){magenta} | %clr(---){faint} | %clr(%X{tracker_id}){faint} | %clr(%X{bussiness_id}){faint} | %clr([%15.15t]){faint} | %clr(%-40.40logger{39}){cyan} | %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE" />
+        <appender-ref ref="ERRORLOG" />
+    </root>
+
+    <!-- 需要配置的日志 -->
+    <logger name="com.puhui" level="INFO" additivity="true"/>
+    <logger name="com.finupgroup.postloan" level="INFO" additivity="true"/>
+
+</configuration>

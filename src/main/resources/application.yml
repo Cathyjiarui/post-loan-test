@@ -1,0 +1,92 @@
+server:
+  error:
+    whitelabel:
+      enabled: true
+  port: 33306
+  tomcat:
+    uri-encoding: UTF-8
+
+info:
+  app:
+    name: @project.artifactId@
+    description: @project.description@
+    version: @project.version@
+  build:
+    artifact: @project.artifactId@
+    name: @project.name@
+    description: @project.description@
+    version: @project.version@
+
+endpoints:
+  enabled: true
+  shutdown:
+    enabled: true
+  health:
+    enabled: true
+    sensitive: true
+    time-to-live: 3000
+
+oauth:
+  serverUrl: http://uaa.galaxy.test/uaa
+  clientId: puhui-repay-cloud-server
+  secret: puhui-repay-cloud-server
+
+logging:
+  level: debug
+
+mybatis-plus:
+  type-aliases-package: com.finupgroup.postloan.evaluate.entity
+  type-enums-package: com.finupgroup.postloan.evaluate.enums
+  global-config:
+    db-config:
+      id-type: id_worker
+      field-strategy: not_empty
+      logic-delete-value: Y
+      logic-not-delete-value: N
+      db-type: mysql
+      table-underline: true
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+host:
+  external:
+    url: @external.url@
+  postloan:
+    url: @postloan.url@
+  core:
+    url: @core.url@
+
+spring:
+#  mail:
+#    host: owa.finupgroup.com
+#    username: zhangjia01@finupgroup.com
+#    password: Cathy140530*
+#    port: 587
+#    protocol: smtp
+#    default-encoding: UTF-8
+  freemarker:
+    template-loader-path: classpath:/templates/
+    cache: true
+    charset: UTF-8
+    check-template-location: true
+    content-type: text/html
+    expose-request-attributes: true
+    expose-session-attributes: true
+    request-context-attribute: request
+    suffix: .ftl
+  data:
+    mongodb:
+      uri: mongodb://repay_new:5qm4VzOhvnNC0wGZ@10.10.220.154:27017/puhui_repay_new
+xxl:
+  job:
+    admin:
+      addresses: http://post-loan-job-admin.postloan.test
+    executor:
+      appname: post-loan-test-server
+      port: 9090
+      ip:
+      logpath: /data/applogs/xxl-job/jobhandler
+      logretentiondays: -1
+    accessToken:

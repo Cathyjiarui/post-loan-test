@@ -1,0 +1,19 @@
+#spring-cloud-config
+spring:
+  cloud:
+    config:
+      uri: @config.url@
+      enabled: true
+      name: @project.artifactId@
+      profile: config
+      label: @config.branch@
+
+security:
+  basic:
+    enabled: false
+management:
+  security:
+    enabled: false
+
+
+
